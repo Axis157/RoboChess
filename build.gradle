@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = '1.8'
+mainClassName = 'ru.gurtovenko.Main'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+//compileJava.options.encoding = 'UTF-8'
+
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'ru.gurtovenko.Main'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+dependencies {
+	
+}
